@@ -46,14 +46,12 @@ public class EmailNotificationService {
                 builder().status(NotificationStatus.SENT).
                 createdAt(LocalDateTime.now()).type(NotificationType.CODE)
                 .verificationCode(verificationCode).email(email).build();
-        //TODO создать экземпляр NotificationHistoryEntity с необходимыми данными (status по умолчанию SENT, createdAt принимает LocalDateTime.now()), с помощью builder (не забыть @Builder в сущности)
 
         try {
             sendEmail(email, message + verificationCode, subject);
             notificationRepository.save(new CodeVerificationEntity(email, verificationCode));
             notificationHistoryRepository.save(notificationHistoryEntity);
         } catch (Exception e) {
-            //TODO изменить статус в NotificationHistoryEntity на SEND_ERROR, так как произошла ошибка
             notificationHistoryEntity.setStatus(NotificationStatus.SEND_ERROR);
             notificationHistoryRepository.save(notificationHistoryEntity);
         }
@@ -73,7 +71,6 @@ public class EmailNotificationService {
             sendEmail(email, message, subject);
             notificationHistoryRepository.save(notificationHistoryEntity);
         } catch (Exception e) {
-            //TODO изменить статус в NotificationHistoryEntity на SEND_ERROR, так как произошла ошибка
             notificationHistoryEntity.setStatus(NotificationStatus.SEND_ERROR);
             notificationHistoryRepository.save(notificationHistoryEntity);
         }

@@ -19,20 +19,20 @@ public class EmailNotificationController {
     @PostMapping(path = "/code")
     public void sendVerificationCode(@RequestParam(name = "email") String email) {
         notificationService.sendVerificationCode(email);
-        //TODO вызвать метод отправки кода подтверждения
+
     }
 
     @PostMapping(path = "/message")
     public void sendMessage(@RequestParam(name = "email") String email, @RequestParam(name = "message") String message)  {
         notificationService.sendMessage(email,message);
-        //TODO вызвать метод рассылки уведомлений
+
 
     }
 
     @GetMapping(path = "/verify")
     public ResponseEntity<Boolean> verify(@RequestParam(name = "email") String email, @RequestParam(name = "code") String code) {
 
-        //TODO вызвать метод верификации кода подтверждения (ResponceEntity.ok())
+
         return new ResponseEntity<>(notificationService.verify(email,code),HttpStatus.OK);
     }
 }
